@@ -10,19 +10,8 @@
 	<div id="app">
 		<input type="number" v-model = "number"> <!-- v-model คือ การเปลี่ยนค่า input-->
 		<div class="space"></div>
-		<h3>สูตรคูณแม่ {{number}} </h3>
-		<h4>{{number}} x 1 = {{number1}}</h4>
-		<h4>{{number}} x 2 = {{number2}}</h4>
-		<h4>{{number}} x 3 = {{number3}}</h4>
-		<h4>{{number}} x 4 = {{number4}}</h4>
-		<h4>{{number}} x 5 = {{number5}}</h4>
-		<h4>{{number}} x 6 = {{number6}}</h4>
-		<h4>{{number}} x 7 = {{number7}}</h4>
-		<h4>{{number}} x 8 = {{number8}}</h4>
-		<h4>{{number}} x 9 = {{number9}}</h4>
-		<h4>{{number}} x 10 = {{number10}}</h4>
-		<h4>{{number}} x 11 = {{number11}}</h4>
-		<h4>{{number}} x 12 = {{number12}}</h4>
+		<h3>สูตรคูณแม่  {{number}} </h3>
+		<h4 v-for = "i in 12"> {{number}} x {{i}} = {{multiply(i)}}</h4>
 	</div>
 
 	<script>
@@ -32,63 +21,11 @@
 				number: 2
 			},
 
-			computed: { //กำหนดค่าที่ผ่านการคำนวณคงตัว ต้อง return เสมอ เรียนก number ไม่ได้เพราะไม่ใช่ตัวแปร ต้องใช้ thsi.
-				number1: function(){
-					return this.number*1;
-				},
-
-				number2: function(){
-					return this.number*2;
-
-				},
-
-				number3: function(){
-					return this.number*3;
-
-				},
-
-				number4: function(){
-					return this.number*4;
-
-				}, 
-
-				number5: function(){
-					return this.number*5;
-
-				},
-				number6: function(){
-					return this.number*6;
-
-				},
-				number7: function(){
-					return this.number*7;
-
-				},
-
-				number8: function(){
-					return this.number*8;
-
-				},
-
-				number9: function(){
-					return this.number*9;
-
-				},
-				number10: function(){
-					return this.number*10;
-
-				},
-				number11: function(){
-					return this.number*11;
-
-				},
-				number12: function(){
-					return this.number*12;
-
+			methods:{ // methods สามารถรับค่าได้ computed รับค่าไม่ได้
+				multiply: function(i){
+				return this.number*i;	
 				}
-
 			}
-
 		})
 	</script>
 </body>
