@@ -9,23 +9,95 @@
 <body class="paper">
 	<div id="app">
 		<input type="number" v-model = "number"> <!-- v-model คือ การเปลี่ยนค่า input-->
+		<input type="number" v-model = "num"> 
 		<div class="space"></div>
 		<h3>สูตรคูณแม่  {{number}} </h3>
-		<h4 v-for = "i in 12"> {{number}} x {{i}} = {{multiply(i)}}</h4>
+		<h3>สูตรคูณ แม่ก่อนหน้า {{before}} </h3>
+		<h4 v-for = "i in amoung"> {{number}} x {{i}} = {{multiply(i)}}</h4>
 	</div>
 
 	<script>
 		let app = new Vue({
 			el: '#app',
 			data: {
-				number: 2
+				number: 2,
+				before: 1,
+				num: 12
 			},
 
-			methods:{ // methods สามารถรับค่าได้ computed รับค่าไม่ได้
+			methods:{ // methods สามารถรับค่าได้ computed รับค่าไม่ได้ ห้ามตั้งชื่อตรงกับ data
 				multiply: function(i){
-				return this.number*i;	
+					return this.number*i;	
+				}
+			},
+
+			watch:{ // ต้องตั้งค่สตรงกับ data ไว้จับตาดู data
+				number: function(a, b){
+					console.log(a)
+					console.log(b) // ไว้ดูค่า
+					this.before = b
+				}
+
+			},
+			computed: { //กำหนดค่าที่ผ่านการคำนวณคงตัว ต้อง return เสมอ เรียนก number ไม่ได้เพราะไม่ใช่ตัวแปร ต้องใช้ this. computed รับค่าไม่ได้ ห้ามตั้งชื่อตรงกับ data
+				amoung: function(){
+					return parseInt(this.num);
+				},
+				number1: function(){
+					return this.number*1;
+				},
+
+				number2: function(){
+					return this.number*2;
+
+				},
+
+				number3: function(){
+					return this.number*3;
+
+				},
+
+				number4: function(){
+					return this.number*4;
+
+				}, 
+
+				number5: function(){
+					return this.number*5;
+
+				},
+				number6: function(){
+					return this.number*6;
+
+				},
+				number7: function(){
+					return this.number*7;
+
+				},
+
+				number8: function(){
+					return this.number*8;
+
+				},
+
+				number9: function(){
+					return this.number*9;
+
+				},
+				number10: function(){
+					return this.number*10;
+
+				},
+				number11: function(){
+					return this.number*11;
+
+				},
+				number12: function(){
+					return this.number*12;
+
 				}
 			}
+
 		})
 	</script>
 </body>
