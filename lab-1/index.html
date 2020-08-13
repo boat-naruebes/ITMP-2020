@@ -4,42 +4,50 @@
 	<title>Lab - Multimedia Programming 2563 ITKMITL</title>
 	<link rel=stylesheet href="../src/reset.css">
 	<link rel=stylesheet href="lab.css">
+	<link href="https://fonts.googleapis.com/css2?family=Kanit:wght@100&display=swap" rel="stylesheet">
 	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 </head>
 <body class="paper">
+	<h3 class = "head"> ตารางสูตรคูณ</h3>
 	<div id="app">
-		<input type="number" v-model = "number"> <!-- v-model คือ การเปลี่ยนค่า input-->
-		<input type="number" v-model = "num"> 
+		<input type="number" id = "number"  v-model = "number"> <!-- v-model คือ การเปลี่ยนค่า input-->
+		<input type="number" id = "num" v-model = "num"> 
 		<div class="space"></div>
-		<h3>สูตรคูณแม่  {{number}} </h3>
-		<h3>สูตรคูณ แม่ก่อนหน้า {{before}} </h3>
-		<h4 v-for = "i in amoung"> {{number}} x {{i}} = {{multiply(i)}} {{sum(i)}}</h4>
-		<h4>sum = {{output}}</h4>
+		<h3 class = "number">สูตรคูณแม่  {{number}} </h3>
+		<h3 class = "num">สูตรคูณ แม่ก่อนหน้า {{before}} </h3>
+		<h4 class = "list_num" v-for = "i in amoung"> {{number}} x {{i}} = {{multiply(i)}}</h4>
+		<h4 class="sum">ผลรวม = {{add()}}</h4>
 	</div>
-
 	<script>
 		let app = new Vue({
 			el: '#app',
 			data: {
 				number: 2,
-				before: 1,
 				num: 12,
-				output:0
 			},
-
 			methods:{ // methods สามารถรับค่าได้ computed รับค่าไม่ได้ ห้ามตั้งชื่อตรงกับ data
-				multiply: function(i){
-					return this.number*i
+				multiply: function(num){
+					// console.log(num)
+					return parseInt(this.number*num)
 				},
-				sum: function(i){
-					return this.number*i
-				}
+				add: function(){
+					// console.log()
+					return parseInt(this.number)*((parseInt(this.num)*(parseInt(this.num)+1))/2)
+					
+				},
+
 			},
 			computed: { //กำหนดค่าที่ผ่านการคำนวณคงตัว ต้อง return เสมอ เรียนก number ไม่ได้เพราะไม่ใช่ตัวแปร ต้องใช้ this. computed รับค่าไม่ได้ ห้ามตั้งชื่อตรงกับ data
 				amoung: function(){
-					return parseInt(this.num);
+					return parseInt(this.num)
+				}
+			},
+			watch:{
+				number: function(a, b){
+					// console.log(a);
+					// console.log(b);
+					this.before = b;
 				},
-				
 			}
 
 		})

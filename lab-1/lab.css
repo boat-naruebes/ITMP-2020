@@ -1,0 +1,55 @@
+body{
+	background-color: rgb(232,240,255);
+}
+div{
+	text-align: center;
+}
+.head{
+	font-size: 30px;
+	text-align: center;
+	font-family: 'Kanit', sans-serif;
+
+
+}
+.list_num{
+	color: orange;
+	font-size: 18px;
+}
+#number:hover{
+	background-color: blue;
+	color: white;
+	border-color: black;
+	border-style: solid;
+
+}
+#number{
+	background-color: rgb(0,0,205);
+	color: white;
+	border-color: black;
+	border-style: solid;
+
+}
+#num:hover{
+	background-color: red;
+	color: white;
+	border-color: black;
+	border-style: solid; 
+}
+#num{
+	background-color: rgb(205,0,0);
+	color: white;
+	border-color: black;
+	border-style: solid; 
+}
+.number{
+	color: red;
+	font-size: 24px;
+}
+.num{
+	color: rgb(75,0,130);
+	font-size: 20px;
+}
+.sum{
+	color: red;
+	font-size: 24px;
+}
