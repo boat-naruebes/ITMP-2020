@@ -10,50 +10,76 @@
 	<div id="canvas">
 		<section id="canvas_header">
 			<div>
-				เหลือเวลา 10 วินาที
+				เหลือเวลา {{time}} วินาที
 			</div>
 		</section>
 		<section id="canvas_main">
 			<main>
-				<a-dot></a-dot>
-				<a-dot></a-dot>
-				<a-dot></a-dot>
-				<a-dot></a-dot>
-				<a-dot></a-dot>
-				<a-dot style="--l:80%"></a-dot>
-				<a-dot data-pick="true"></a-dot>
-				<a-dot></a-dot>
-				<a-dot></a-dot>
+				<a-dot v-for = "i in row*row" 
+				:style = "{
+				'--row': row,
+				'--h': h,
+				'--l': l,
+
+			}" :data-pick = 'i == pick' 
+			@click = "check(i == pick) || correct(i == pick) "
+			> <!-- : เพื่อให้ style เป็น js -->
+			</a-dot>
 			</main>
 		</section>
 		<section id="canvas_footer">
 			<div>
-				0 คะแนน
+				{{score}} คะแนน
 			</div>
 		</section>
 	</div>
 
 	<script>
-		let picklight = "20%" //เลือกว่ารอบนี้ อันพิเศษจะมีความสว่าง 20%
+		let picklight = "50%" //เลือกว่ารอบนี้ อันพิเศษจะมีความสว่าง 50%
 		document.registerElement('a-dot') //ให้ vue รู้จัก a-dot
 
 		function rand(start,stop){//สร้างฟังก์ชัน random ไว้ใช้
 			let shift = (stop-start)+1
 			return Math.floor(Math.random()*100%shift)+start
 		}
-
+		var ch = 0;
 		let app = new Vue({
 			el:'#canvas',
 			data:{
 				row:2, //จำนวนแถวที่จะมีในรอบนี้
-				h:330, // hue ในรอบนี้
+				h:10, // hue ในรอบนี้
 				time:10, //เวลาเริ่มต้น
 				score:0, //คะแนนเริ่มต้น
 				pick:1, //หมายเลขวงกลมที่จะสีแตกต่างจากก้อนอื่นๆ
-				l:30,//ความสว่างของสีทั่วไปในรอบนี้
+				l:'30%',//ความสว่างของสีทั่วไปในรอบนี้ hue datatype = string หน่วยเป็น %
 			},
 			methods: {
+				check: function(i){
+					if(i == true && this.time > 0){
+						console.log(i)
+						this.score+=1
+						this.time+=1
 
+					}
+					else if(i == false && this.time > 1 && this.score > 0){
+						this.score-=1
+						this.time -=2
+					}
+				},
+				correct: function(i){
+					if(i == true && this.time != 0){
+					this.row = rand(2,7)
+					this.pick = rand(1, this.row*this.row)
+					this.h = rand(10, 330)
+					console.log('correct')
+					ch++;
+					if(ch >= 5){
+						this.l = "40%"
+						console.log(ch)
+						}
+					}
+					
+				}
 			}
 		})
 		//ทำให้แคนวาสมี --picklight ตามที่กำหนดไว้ข้างบนนี้
