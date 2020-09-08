@@ -21,7 +21,7 @@
 				<div class="box _path" 
 				v-for="i in 14" 
 				:data-pst="i"></div> <!-- texture-->
-				<div class="box _toggle" data-pst="10" data-isrightarrow="1"></div><!--จุดเปลี่ยนสี-->
+				<div class="box _toggle" data-pst="10" :data-isrightarrow="isRightArrow"></div><!--จุดเปลี่ยนสี-->
 
 				<div class="box _fruit" v-for = "i in fruits" :data-pst = "i.pst"></div> <!--ต่ำแหน่งของผลไม้-->
 
@@ -34,7 +34,7 @@
 
 
 		<section id="canvas_footer">
-			<div v-if="play" class="btn" id="toggle">
+			<div v-if="play" class="btn" id="toggle"  @click = "click()">
 				Toggle
 			</div>
 			<div v-if="!play" class="btn" id="endgame">
@@ -70,7 +70,7 @@
 			},
 			watch:{
 				turn: function (x){
-					console.log(x)
+					// console.log(x)
 					let count = this.fruits.length
 					for(let f in this.fruits){
 						let run = this.fruits[f].run
@@ -78,6 +78,19 @@
 							this.fruits[f].pst = this.fruits[f].pst+1
 						}
 						
+					}
+				}
+			},
+
+			methods:{
+				click: function(){
+					if(this.isRightArrow == "1"){
+						this.isRightArrow = "0";
+						console.log("red")
+					}
+					else if(this.isRightArrow == "0"){
+						this.isRightArrow = "1";
+						console.log("yellow")
 					}
 				}
 			}
