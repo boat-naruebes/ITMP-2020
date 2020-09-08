@@ -66,20 +66,21 @@ div.box{
 #endgame{
 	background-color: #333;
 }
-.box._toggle{
-	background-color: yellow;
-	transition: none;
-	opacity: .5;
-}
 .box._toggle[data-isrightarrow="0"]{
 	background-color: red;
+	transition: none;
+	background-size: 100%;
 }
-
+.box._toggle[data-isrightarrow="1"]{
+	background-color: yellow;
+	transition: none;
+	background-size: 100%;
+}
 
 .box._12{
 	background-color: red;
 }
-.box._16{
+.box._14{
 	background-color: yellow;
 }
 .box._path{
@@ -161,7 +162,7 @@ div.box{
 	right:20%;
 	bottom:40%;
 }
-.box[data-pst="16"]{
+.box[data-pst="14"]{
 	right:0%;
 	bottom:40%;
 }

@@ -10,11 +10,9 @@
 	<div id="canvas">
 		<section id="canvas_header">
 			<div>
-				{{score}}
+				score {{score}}
 			</div>
 		</section>
-
-
 		<section id="canvas_main" 
 		:data-play="play">
 			<main>
@@ -23,18 +21,16 @@
 				:data-pst="i"></div> <!-- texture-->
 				<div class="box _toggle" data-pst="10" :data-isrightarrow="isRightArrow"></div><!--จุดเปลี่ยนสี-->
 
-				<div class="box _fruit" v-for = "i in fruits" :data-pst = "i.pst"></div> <!--ต่ำแหน่งของผลไม้-->
+				<div class="box _fruit" v-for="i in fruits":data-pst="i.pst" :data-type=i.type></div><!--ต่ำแหน่งของผลไม้-->
 
-				<div class="box _origin"></div> <!--ต่ำเเหน่งแรกสีส้ม-->
-				<div class="box _12" data-pst="12"></div> <!--ต่ำแหน่งของสีเหลี่ยมสีแดง-->
-				<div class="box _16" data-pst="16"></div> <!--ต่ำแหน่งของสีเหลี่ยมสีเหลือง-->
+				<div class="box _origin"></div><!--ต่ำเเหน่งแรกสีส้ม-->
+				<div class="box _12" data-pst="12"></div><!--ต่ำแหน่งของสีเหลี่ยมสีแดง-->
+				<div class="box _14" data-pst="14"></div><!--ต่ำแหน่งของสีเหลี่ยมสีเหลือง-->
 				
 			</main>
 		</section>
-
-
 		<section id="canvas_footer">
-			<div v-if="play" class="btn" id="toggle"  @click = "click()">
+			<div v-if="play" class="btn" id="toggle" @click="click()">
 				Toggle
 			</div>
 			<div v-if="!play" class="btn" id="endgame">
@@ -49,13 +45,12 @@
 			return Math.floor(Math.random()*100%shift)+start
 		}
 		
-		let fruitCount = 5
+		let FruitId = 5
 		let isRightArrow = 1
 		let speed = 1000
 		let app = new Vue({
 			el:'#canvas',
 			data:{
-				
 				isRightArrow: isRightArrow,
 				speed: speed,
 				play:true,
@@ -63,43 +58,64 @@
 				score:0,
 				fruits:[
 					{id:1,type:13,pst:6,run:true,step:1},
-					{id:2,type:11,pst:3,run:true,step:1},
-					{id:3,type:11,pst:2,run:true,step:1},
-					{id:4,type:13,pst:1,run:true,step:1},
+					{id:2,type:11,pst:3,run:true,step:3},
+					{id:3,type:13,pst:2,run:true,step:3},
+					{id:4,type:11,pst:1,run:true,step:1},
 				]
 			},
-			watch:{
-				turn: function (x){
-					// console.log(x)
-					let count = this.fruits.length
-					for(let f in this.fruits){
-						let run = this.fruits[f].run
-						if(run){
-							this.fruits[f].pst = this.fruits[f].pst+1
-						}
-						
-					}
-				}
-			},
-
-			methods:{
+			methods:{ //เปลี่ยนสีปุ่ม	
 				click: function(){
-					if(this.isRightArrow == "1"){
-						this.isRightArrow = "0";
-						console.log("red")
+					if (this.isRightArrow == 1) {
+						this.isRightArrow = 0
+					}else{
+						this.isRightArrow = 1
 					}
-					else if(this.isRightArrow == "0"){
-						this.isRightArrow = "1";
-						console.log("yellow")
+				},
+			},
+			watch:{
+				turn: function(){
+					// step
+					for(let f in this.fruits){
+						if (this.fruits[f].pst == 10) {
+							if (this.isRightArrow == 1) {
+								this.fruits[f].step = 3
+							}else{
+								this.fruits[f].step = 1
+							}
+						}else{
+							this.fruits[f].step = 1
+						}
+
+						
+						//คิดคะแนน
+						if(this.fruits[f].pst == 11 || this.fruits[f].pst == 13){
+							if (this.fruits[f].pst == this.fruits[f].type && this.fruits[f].run) {
+								this.score++;
+							}
+							else if(this.fruits[f].pst != this.fruits[f].type && this.fruits[f].run){
+								this.play = false;
+							}
+						}
+
+							//ขยับ
+							let run = this.fruits[f].run
+						if(run){
+							this.fruits[f].pst = this.fruits[f].pst+this.fruits[f].step
+						}
+
+							//หยุดวิ่ง
+						if(this.fruits[f].pst == 12 || this.fruits[f].pst == 14){
+							this.fruits[f].run = false;
+						}
 					}
 				}
-			}
-
+				
+			},
 		})
+
 		let playing = setInterval(function(){
 			app.turn++
 		},speed)
-
 	</script>
 </body>
 </html>
