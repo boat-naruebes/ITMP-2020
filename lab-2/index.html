@@ -3,95 +3,29 @@
 <head>
 	<title>The Members - ITKMITL Multimedia Programming 2563</title>
 
-	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script> <!-- link vue js -->
 	<link rel="stylesheet" type="text/css" href="lab.css">
 </head>
 <body>
 	<div id="app">
 		About <!-- แสดงข้อมูลคนที่ [0] -->
-		<h3>Username {{person.username}}</h3>
-		<h3>Name {{person.name}}</h3>
-		<h3>email {{person.email}}</h3>
-		<h3>website {{person.website}}</h3>
-		<h3>company {{person.company.name}}</h3>
-
-		<button @click="isthisgood">เขาเป็นสมาชิกกลุ่มที่ดีหรือไม่</button>
-		<h2>{{yesno.answer}}</h2>
-		<img :src="yesno.image" alt="">
-
-		Users
-		<h2 v-for="u in users" :data-id="u.id" @click="viewBio(u)">
-			<img :src="`https://picsum.photos/id/3${u.id}/300/300`" alt="">
-			{{u.username}}
-		</h2>
+		<h3 v-for = "i in person">{{i}}</h3>
 	</div>
 	
 
-	<script>
-		fetch('https://jsonplaceholder.typicode.com/users')// ดึง api มาใช้ทั้งหมด
-		.then(response => response.json())
-		.then(json => {
-			console.log(json)
-			app.users = json// ดึงข้อมูลทั้งหมด
-			app.person = json[0]// ดึงข้อมูลคนแรก
-		})
-		
 
+	<script>
+		fetch('https://data.go.th/dataset/44b8d98a-1140-420a-adc2-c11be374d85a/resource/3448a8bb-8524-4b72-99c8-c382aa1b97f4/download/college.json')
+		.then(response => response.json())
+		.then(data => console.log(data))
 		let app = new Vue({
 			el: '#app',
-			methods: {
-				viewBio: function(user){
-					this.person = user
-					this.yesno.answer = "อยากรู้ คลิกเลย"
-					this.yesno.image = ""
-				},
-				isthisgood: function(){
-					fetch('https://yesno.wtf/api')
-					.then(response => response.json())
-					.then(json => {
-						console.log(json)
-						app.yesno = json
-					})
-				}
-			},
 			data: {
-				yesno:{
-					"answer":"อยากรู้ คลิกเลย",
-					"forced":false,
-					"image":""
-				},
-				person:{
-					"id": 1,
-					"name": "_",
-					"username": "_",
-					"email": "_",
-					"website": "_",
-					"company": {
-						"name": "_",
-						"catchPhrase": "Multi-layered client-server neural-net",
-						"bs": "harness real-time e-markets"
-					}
-				},
-				users : [{
-					"id": 1,
-					"name": "_",
-					"username": "_",
-					"email": "_",
-					"website": "_",
-					"company": {
-						"name": "_",
-						"catchPhrase": "Multi-layered client-server neural-net",
-						"bs": "harness real-time e-markets"
-					}
-				}]
-			}
-		})
+				person:[{
+					"id":"load",}],
 
-		// function viewBio(h2){
-		// 	let id = h2.dataset.id;
-		// 	app.person = app.users[id-1]
-		// 	console.log(id)
-		// }
+			},
+		})
 	</script>
 </body>
 </html>
