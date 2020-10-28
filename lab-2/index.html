@@ -3,29 +3,74 @@
 <head>
 	<title>The Members - ITKMITL Multimedia Programming 2563</title>
 
-	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script> <!-- link vue js -->
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 	<link rel="stylesheet" type="text/css" href="lab.css">
 </head>
 <body>
 	<div id="app">
-		About <!-- แสดงข้อมูลคนที่ [0] -->
-		<h3 v-for = "i in person">{{i}}</h3>
+		Exchange Rates<br>
+
+		
+		<h2 v-for = "i in Exchange " @click="cal(i)"> 
+			
+	 {{i.code}}</h2>
+		
+
+		<h2> 
+		code: {{current.code}}<br>
+		alphaCode: {{current.alphaCode}}<br>
+		numericCode: {{current.numericCode}}<br>
+		name: {{current.name}}<br>
+		rate: {{current.rate}}<br>
+		inverseRate: {{current.inverseRate}}<br>
+		</h2>
+
+		<h2>update = {{current.date}}</h2>
 	</div>
 	
 
-
 	<script>
-		fetch('https://data.go.th/dataset/44b8d98a-1140-420a-adc2-c11be374d85a/resource/3448a8bb-8524-4b72-99c8-c382aa1b97f4/download/college.json')
+		fetch('http://www.floatrates.com/daily/thb.json')
 		.then(response => response.json())
-		.then(data => console.log(data))
+		.then(json => {
+			console.log(json)
+			app.Exchange = json
+		})
 		let app = new Vue({
 			el: '#app',
-			data: {
-				person:[{
-					"id":"load",}],
+
+			data:
+			{ // data คือ ค่า defalt ของ vue เอาออกหรือเปลี่ยนไไม่ได้
+				current:{
+				"code":"EUR",
+				"alphaCode":"EUR",
+				"numericCode":"978",
+				"name":"Euro",
+				"rate":"0.027211935425104",
+				"inverseRate":"36.748580517263",
+			
+				},
+
+				Exchange:{
+				"code":"EUR",
+				"alphaCode":"EUR",
+				"numericCode":"978",
+				"name":"Euro",
+				"rate":0.027211935425104,
+				"date":"Thu, 8 Oct 2020 12:00:01 GMT",
+				"inverseRate":36.748580517263
+				},
 
 			},
+			methods:{
+				cal: function(i){
+					this.Exchange = i
+					console.log(this.current = this.Exchange)
+					}
+			}
 		})
+
+		
 	</script>
 </body>
 </html>
