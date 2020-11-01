@@ -1,14 +1,32 @@
 *{
-	margin:auto;
+	
+	background-color: black;
 }
 h2{
 	text-align: center;
+	color: white;
 }
 
-h3{
-	padding-left: 50px;
+.c-data{
+	
+	background-color: red;
+	width: 25%;
+	position: relative;
+	left:6%;
+	color:white;
+
 }
 .btn{
-	width: 75px;
+	width: 55px;
+	margin-left: 4px;
+	margin-bottom: 4px;
+
 	
+}
+h5{
+	color:
+}
+.boxs{
+	padding-left: 20px;
+
 }

@@ -9,22 +9,23 @@
 	
 </head>
 <body>
-	<div id="app">
+	<div id="app"><br>
 		<h2> Exchange Rates </h2><br>
 
-		<h3> 
+		<h5><div class = "c-data">
 		code: {{current.code}}<br>
 		alphaCode: {{current.alphaCode}}<br>
 		numericCode: {{current.numericCode}}<br>
 		name: {{current.name}}<br>
 		rate: {{current.rate}}<br>
 		inverseRate: {{current.inverseRate}}<br>
-		</h3>
+		</div><h5><br>
 
-		
+			<div class = "boxs">
 			<button class="btn btn-dark" v-for = "i in Exchange " @click="cal(i)" >
 					{{i.code}}
    			</button>
+   			<div><br>
    
 
 
