@@ -1,7 +1,14 @@
+*{
+	margin:auto;
+}
 h2{
 	text-align: center;
 }
-button{
-	width: 85px;
-	margin: 2px;
+
+h3{
+	padding-left: 50px;
+}
+.btn{
+	width: 75px;
+	
 }
