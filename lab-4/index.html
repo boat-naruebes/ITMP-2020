@@ -2,7 +2,6 @@
 <html>
 <head>
 	<title>Color Game - Multimedia Programming 2563 ITKMITL</title>
-	<link rel="stylesheet" type="text/css" href="../src/reset.css">
 	<link rel="stylesheet" type="text/css" href="lab.css">
 	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 </head>
@@ -13,8 +12,10 @@
 				เหลือเวลา {{time}} วินาที
 			</div>
 		</section>
+
 		<section id="canvas_main">
 			<main>
+
 				<a-dot v-for = "i in row*row" 
 				:style = "{
 				'--row': row,
@@ -22,16 +23,27 @@
 				'--l': l,
 
 			}" :data-pick = 'i == pick' 
-			@click = "check(i == pick) || correct(i == pick) "
-			> <!-- : เพื่อให้ style เป็น js -->
-			</a-dot>
+			@click = "check(i == pick) || correct(i == pick) "> <!-- : เพื่อให้ style เป็น js -->
+				</a-dot>
+
 			</main>
 		</section>
+
 		<section id="canvas_footer">
-			<div>
+			
 				{{score}} คะแนน
+		
+
+			<div id = "start">
+				<button @click = "start()">เริ่ม</button>
 			</div>
+
+			<div id = "reset">
+				<button @click = "reset()">restart</button>
+			</div>
+			
 		</section>
+
 	</div>
 
 	<script>
@@ -46,52 +58,75 @@
 		let app = new Vue({
 			el:'#canvas',
 			data:{
+				status:false,
 				row:2, //จำนวนแถวที่จะมีในรอบนี้
 				h:10, // hue ในรอบนี้
-				time:10, //เวลาเริ่มต้น
+				time:20, //เวลา
 				score:0, //คะแนนเริ่มต้น
 				pick:1, //หมายเลขวงกลมที่จะสีแตกต่างจากก้อนอื่นๆ
 				l:'30%',//ความสว่างของสีทั่วไปในรอบนี้ hue datatype = string หน่วยเป็น %
 			},
-			methods: {
+			methods: { // ฟังก์ชัน methods เช็คคะแนนถูผิด
 				check: function(i){
-					if(i == true && this.time > 0){
-						console.log(i)
+	
+
+						if(i == true && this.status && this.time > 0){
 						this.score+=1
 						this.time+=1
+					}
+					
 
-					}
-					else if(i == false && this.time > 1 && this.score > 0){
-						this.score-=1
+						else if((i == false && this.status) && (this.time != 0)){
 						this.time -=2
+						this.score -=1
+					
+					
 					}
+					
 				},
+
 				correct: function(i){
-					if(i == true && this.time != 0){
-					this.row = rand(2,7)
-					this.pick = rand(1, this.row*this.row)
-					this.h = rand(10, 330)
-					console.log('correct')
-					ch++;
-					if(ch >= 5){
-						this.l = "40%"
-						console.log(ch)
+
+						if(i == true && this.status && (this.time != 0)){
+							this.row = rand(2,7)
+							this.pick = rand(1, this.row*this.row)
+							this.h = rand(10, 330)
+							ch++;
+						if(ch >= 5){
+							this.l = "40%"
 						}
 					}
 					
+				},
+				reset: function(){
+						document.querySelector('#reset').style.display = "none";
+						document.querySelector('#start').style.display = "flex";
+						this.time = 20;
+						this.score = 0;
+						this.row = rand(2,7)
+						this.pick = rand(1, this.row*this.row)
+						this.h = rand(10, 330)
+						this.status = false
+
+				},
+				start: function(){
+					document.querySelector('#start').style.display = "none";
+					let counter = setInterval(()=>{
+					if (this.time>0) {
+						this.time--
+					
+					}
+					else{
+						document.querySelector('#reset').style.display = "flex";
+						clearInterval(counter)
+					}
+					},1000);
+					this.status = true;
 				}
 			}
 		})
-		//ทำให้แคนวาสมี --picklight ตามที่กำหนดไว้ข้างบนนี้
-		document.querySelector('#canvas').style.setProperty('--picklight',picklight);
 		
-		let counter = setInterval(()=>{
-			if (app.time>0) {
-				app.time--
-			}else{
-				clearInterval(counter)
-			}
-		},1000);
+		document.querySelector('#canvas').style.setProperty('--picklight',picklight);	//ทำให้แคนวาสมี --picklight ตามที่กำหนดไว้ข้างบนนี้
 	</script>
 </body>
 </html>
